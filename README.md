@@ -269,6 +269,21 @@ If you wish to retry a failed remote download request, you can make a GET reques
 The REQUEST_ID corresponds to the failed download request. The server will return a confirmation or fail response in JSON.
 
 
+### Deleting a cloud download
+
+To delete a cloud download from your account, you can make a GET request to the following URL:
+
+```
+https://offcloud.com/cloud/remove/[requestId]?key=[api_key]
+```
+
+* requestId: The ID of the download request to delete
+
+In the case of success, the script will return the following JSON answer:
+* success: true
+
+When a request cannot be processed, API will return error message in the JSON answer.
+
 
 ## Check that user is logged in to Offcloud.com
 
@@ -326,6 +341,21 @@ $.ajax({
     url: 'https://offcloud.com/api/instant?key=VHK7OoGO57kH1JOO9VlNo8AdRVF0qLD8',
     data: {'url' : 'http://www.cnn.com'},
     type: 'POST',
+    crossDomain: true, // enable this
+xhrFields: {
+    withCredentials: true
+},
+    success: function(data) { console.log(data); },
+    error: function() { console.log('Failed!'); }
+});	
+```
+
+#####  Deleting a cloud download:
+
+```js
+$.ajax({
+    url: 'https://offcloud.com/cloud/remove/687c464c70af281d65927375?key=VHK7OoGO57kH1JOO9VlNo8AdRVF0qLD8',
+    type: 'GET',
     crossDomain: true, // enable this
 xhrFields: {
     withCredentials: true
